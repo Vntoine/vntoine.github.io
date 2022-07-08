@@ -123,6 +123,7 @@ img {
     background-color: var(--clr-dark-cyan);
     border-radius: 10px;
     transition: background-color 500ms;
+    cursor: pointer;
 }
 
 .btn:hover,
