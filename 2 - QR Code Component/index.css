@@ -44,6 +44,7 @@ img {
     background-color: var(--clr-white);
     padding: 1rem;
     border-radius: 22px;
+    box-shadow: 5px 15px 40px var(--clr-secondary);
 }
 
 .box-text {
