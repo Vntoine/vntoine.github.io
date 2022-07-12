@@ -36,7 +36,7 @@ img {
 
 hr {
     color: var(--clr-line);
-    margin-block: 12.5px 15px;
+    margin-block: 1.25rem 1rem;
 }
 
 .container {
@@ -48,10 +48,10 @@ hr {
 }
 
 .card {
-    max-width: 325px;
+    max-width: 350px;
     padding: 1.5rem;
     background-color: var(--bg-card-color);
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     box-shadow: 0px 15px 20px 25px hsl(214, 55%, 8%);
 }
 
@@ -109,7 +109,7 @@ hr {
     color: var(--clr-primary);
     font-size: 1rem;
     font-weight: var(--ft-weight-light);
-    margin-block: 15px;
+    margin-block: 1rem 1.2rem;
     line-height: 1.7rem;
 }
 
@@ -141,6 +141,7 @@ hr {
     display: flex;
     align-items: center;
     gap: 1.2rem;
+    margin-bottom: 0.5rem;
 }
 
 .author-image{
@@ -174,7 +175,7 @@ hr {
 
 .credits-text {
     text-align: center;
-    margin-block: 2rem;
+    margin-bottom: 2rem;
     font-family: var(--ft-family);
     font-size: clamp(1.25rem,5.3vw,2rem);
     color: var(--clr-primary);
