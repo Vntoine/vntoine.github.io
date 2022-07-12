@@ -79,6 +79,7 @@ img {
     display: inline-block;
     color: var(--clr-primary);
     text-decoration-color: var(--clr-primary);
+    transition: color 1s ease;
 }
 
 a[target="_blank"]::after {
