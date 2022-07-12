@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap");
-
 :root {
     /* Colors */
     --clr-white: hsl(0, 0%, 100%);
@@ -11,6 +9,9 @@
     --ft-family: "Outfit", sans-serif;
     --ft-weight-bold: 700;
     --ft-weight-regular: 400;
+
+    /* Extra variables (credits) */
+    --ft-size-credits: clamp(1.25rem,5.3vw,2rem);
 }
 
 *,
@@ -67,15 +68,15 @@ img {
     color: var(--clr-secondary);
 }
 
-
-
-
 .credits-text {
+    font-family: var(--ft-family);
+    font-size: var(--ft-size-credits);
     color: var(--clr-primary);
-    font-size: clamp(1.25rem,5.3vw,2rem);
+    margin-bottom: 2rem;
 }
 
 .credits-text a {
+    display: inline-block;
     color: var(--clr-primary);
     text-decoration-color: var(--clr-primary);
 }
@@ -83,4 +84,32 @@ img {
 a[target="_blank"]::after {
     content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
     margin-left: 5px;
+}
+
+.link:hover,
+.link:focus {
+    color: hsl(217, 57%, 39%);
+    animation: spring 1s ease;
+}
+
+@keyframes spring{
+    20% {
+        font-size: calc(var(--ft-size-credits) * 0.8);
+    }
+    
+    40% {
+        font-size: calc(var(--ft-size-credits) * 1.3);
+    }
+    
+    60% {
+        font-size: calc(var(--ft-size-credits) * 0.9);
+    }
+    
+    80% {
+        font-size: calc(var(--ft-size-credits) * 1.1);
+    }
+    
+    100% {
+        font-size: var(--ft-size-credits);
+    }
 }
