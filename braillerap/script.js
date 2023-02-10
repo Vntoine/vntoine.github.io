@@ -415,7 +415,7 @@ $(document).ready( function() {
 			let char = textCopy[i]
 
 			// check special cases:
-			let charIsCapitalLetter = is8dot ? false : /[A-Z]/.test(char)
+			let charIsCapitalLetter = is8dot ? false : /[A-ZÀÂÇÈÉÊËÎÏÔÙÛÜ]/.test(char)
 			let charIsLineBreak = /\r?\n|\r/.test(char)
 
 			// If char is line break: reset currentX and increase currentY
@@ -473,7 +473,6 @@ $(document).ready( function() {
 			// Draw braille char and compute gcode
 			let charGroup = new Group()
 			textGroup.addChild(charGroup)
-
 			// Iterate through all indices
 			for(let y = 0 ; y < (is8dot ? 4 : 3) ; y++) {
 				for(let x = 0 ; x < 2 ; x++) {
@@ -486,7 +485,6 @@ $(document).ready( function() {
 						dot.fillColor = 'black';
 
 						charGroup.addChild(dot);
-
 						// Compute corresponding gcode position
 						if(x > 0 || y > 0) {
 
@@ -513,12 +511,32 @@ $(document).ready( function() {
 
 			// update currentX & currentY
 			currentX += braille.letterWidth + braille.letterPadding;
-
 			// Test if there is enough room on the line to draw the next character
 			if(currentX + braille.letterWidth + braille.dotRadius > braille.paperWidth - braille.marginWidth) { // if we can't: go to next line
 				currentY += (is8dot ? 2 : 3) * letterWidth + braille.linePadding;
 				currentX = braille.marginWidth;
 			}
+            let cursor = 0;
+            let lastIndex = -1;
+            while(cursor != -1){
+                cursor = textCopy.indexOf("\n",cursor)
+                if(cursor != -1){
+                    lastIndex = cursor;
+                    cursor += 1
+                }
+            }
+
+            let str = textCopy.substring(lastIndex).replace("\n",""); // sans le replace(), le substring contient encore le \n, à revoir
+            lastIndex = -1;
+            cursor = 0;
+            while(cursor != -1){
+                cursor = str.indexOf(" ",cursor);
+                if(cursor != -1){
+                    lastIndex = cursor;
+                    cursor += 1
+                }
+            }
+            console.log(lastIndex);
 
 			if(currentY > braille.paperHeight - braille.marginHeight) { 				// if there is not enough space on paper: stop
 				break;
@@ -565,7 +583,6 @@ $(document).ready( function() {
 		sortedgcode = buildoptimizedgcode();
 		$("#dotposition").val (pstr);
 		$("#optimizedgcode").val (sortedgcode);
-
 	}
 
 	brailleToGCode()
@@ -601,10 +618,10 @@ $(document).ready( function() {
 	dat.GUI.toggleHide = () => {}
 
 	let createController = function(name, min, max, callback, folder, buttonName) {
-		let f = folder != null ? folder : gui
+		let f = folder || gui;
 		let controller = f.add(braille, name, min, max);
-		controller.onChange(callback != null ? callback : brailleToGCode);
-		controller.onFinishChange(callback != null ? callback : brailleToGCode);
+		controller.onChange(callback || brailleToGCode);
+		controller.onFinishChange(callback || brailleToGCode);
 		if(buttonName != null) {
 			controller.name(buttonName)
 		}
@@ -637,11 +654,9 @@ $(document).ready( function() {
 	createController('goToZero', null, null, null, printerSettingsFolder, 'Go to zero');
 	createController('GCODEup', null, null, null, printerSettingsFolder, 'GCODE Up');
 	createController('GCODEdown', null, null, null, printerSettingsFolder, 'GCODE down');
-
-
 	printerSettingsFolder.open();
 
-	var languageList = []
+	var languageList = [] // Utile ?? : duplication de données, languages -> languageList
 	for(let lang in languages) {
 		languageList.push(lang)
 	}
@@ -651,6 +666,7 @@ $(document).ready( function() {
 		brailleToGCode();
 	}, null, 'Language');
 
+    /*
 	// Import SVG to add shapes
 	divJ = $("<input data-name='file-selector' type='file' class='form-control' name='file[]'  accept='image/svg+xml'/>")
 
@@ -711,35 +727,6 @@ $(document).ready( function() {
 	divJ.hide()
 	divJ.change(handleFileSelect)
 
-	// Add download button (to get a text file of the gcode)
-	/*
-	* hide standard gcode download
-	*
-	gui.add({saveGCode: function(){
-		var a = document.body.appendChild(
-			document.createElement("a")
-		);
-		a.download = "braille.gcode";
-		a.href = encodeURI("data:text/plain;charset=utf-8," + gcode);
-
-		a.click(); // Trigger a click on the element
-		a.remove();
-
-	}}, 'saveGCode').name('Save GCode')
-	*/
-	// Add download button (to get a text file of the gcode)
-	gui.add({saveOptimGCode: function(){
-		var a = document.body.appendChild(
-			document.createElement("a")
-		);
-		a.download = "braille.gcode";
-		a.href = encodeURI("data:text/plain;charset=utf-8," + sortedgcode);
-
-		a.click(); // Trigger a click on the element
-		a.remove();
-
-	}}, 'saveOptimGCode').name('Download GCode')
-
 	createController('svgStep', 0, 100, null, svgFolder, 'SVG step');
 	createController('svgDots', null, null , null, svgFolder, 'SVG dots');
 
@@ -756,22 +743,28 @@ $(document).ready( function() {
 		console.log (svg.position.y);
 		brailleToGCode();
 	}
-  createController('usedotgrid', null, null, null, svgFolder, 'Dot filter');
+    createController('usedotgrid', null, null, null, svgFolder, 'Dot filter');
 	createController('svgPosX', -500, 500, updateSVGPositionX, svgFolder, 'SVG pos X');
-	createController('svgPosY', -500, 500, updateSVGPositionY, svgFolder, 'SVG pos Y');
+	createController('svgPosY', -500, 500, updateSVGPositionY, svgFolder, 'SVG pos Y');*/
 	// createController('svgScale', 0.05, 10, null, svgFolder, 'SVG scale');
 
-	// Update all when text changes
-	$('#latin').bind('input propertychange', function(event) {
-		text = $("#latin").val();
-		$('#braille').val(text);
-		brailleToGCode(text);
-	})
+    // Add download button (to get a text file of the gcode)
+	gui.add({saveOptimGCode: function(){
+		var a = document.body.appendChild(
+			document.createElement("a")
+		);
+		a.download = "braille.gcode";
+		a.href = encodeURI("data:text/plain;charset=utf-8," + sortedgcode);
+
+		a.click(); // Trigger a click on the element
+		a.remove();
+
+	}}, 'saveOptimGCode').name('Download GCode')
 
 	// Update all when text changes
-	$('#braille').bind('input propertychange', function(event) {
-		text = $("#braille").val();
-		$('#latin').val(text);
+	$('#latin').bind('input propertychange', function() {
+		text = $("#latin").val();
+        console.log("Texte :"+text);
 		brailleToGCode(text);
 	})
 

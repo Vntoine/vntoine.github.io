@@ -1,55 +1,47 @@
 <!DOCTYPE html>
 <html>
-	<meta charset="utf-8" /> 
-  <head>
-    <title>Braille Rap</title>
-    <!-- <script src="https://code.jquery.com/jquery-2.1.4.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.10.2/paper-full.min.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.1/dat.gui.min.js"></script> -->
-    <script src="jquery-3.1.1.min.js"></script>
-    <script src="paper-full.min.js"></script>
-    <script src="dat.gui.min.js"></script>
-    <!-- <script src="StreamSaver.js"></script> -->
-    <!-- <script src="polyfill.min.js"></script> -->
-    <link rel="stylesheet" href="style.css" />
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Braille Rap</title>
+        
+        <script src="jquery-3.1.1.min.js"></script>
+        <script src="paper-full.min.js"></script>
+        <script src="dat.gui.min.js"></script>
 
-    <script>var languages = {}</script>
-    <script src="braille6.js"></script>
-	<script src="braille6india.js"></script>
-    <script src="braille8old.js"></script>
-    <script src="braille8new.js"></script>
-    <script src="devnagrinumbers.js"></script>
-    <script src="script.js"></script>
-
-
-
-  </head>
+        <link rel="stylesheet" href="style.css" />
+        
+        <script>var languages = {};</script>
+        <script src="braille6.js"></script>
+        <script src="braille6india.js"></script>
+        <script src="braille8old.js"></script>
+        <script src="braille8new.js"></script>
+        <script src="devnagrinumbers.js"></script>
+        <script src="script.js"></script>
+    </head>
 
   <body>
     
     <h1>Braille Rap</h1>
-    
     <p>Braille<em>Rap</em> est un projet visant &#224; &#233;crire du Braille sur papier &#224; l&#39;aide d&#39;une imprimante 3D.</p>
 
-    <p><a href="https://github.com/crocsg/BrailleRap/blob/master/Documentation/documentation-fr.md">Documentation</a></p>
-    <p><a href="https://github.com/crocsg/BrailleRap">Github repository</a></p>
+    <!--<p><a href="https://github.com/crocsg/BrailleRap/blob/master/Documentation/documentation-fr.md">Documentation</a></p>
+    <p><a href="https://github.com/crocsg/BrailleRap">Github repository</a></p>-->
 
     <div id="textareas">
-      <textarea id='latin' placeholder="Enter your text."></textarea>
-      <!-- <textarea id='braille'></textarea> -->
-	  <canvas id="paperCanvas" resize hdpi></canvas>
-      <div id="gui"></div>
+        <textarea id='latin' placeholder="Entrez votre texte..."></textarea>
+	    <canvas id="paperCanvas" resize hdpi></canvas>
+        <div id="gui"></div>
     </div>
 
-    <div id="output">
-      <div style="display: inline-block;" id="optimize-container"><textarea id="optimizedgcode"></textarea></div>
-      <div>Print size: <span id="print-size">--</span></div>
+    <!--<div id="output">
+        <div style="display: inline-block;" id="optimize-container"><textarea id="optimizedgcode"></textarea></div>
+        <div>Print size: <span id="print-size">--</span></div>
     </div>
     <div id="info">
-          <div  style="display: inline-block;" id="pos-container"><textarea id="dotposition"></textarea></div>
-		  <div style="display: inline-block;" id="gcode-container"><textarea id="gcode"></textarea></div>
-    </div>
+        <div style="display: inline-block;" id="pos-container"><textarea id="dotposition"></textarea></div>
+	    <div style="display: inline-block;" id="gcode-container"><textarea id="gcode"></textarea></div>
+    </div>-->
   </body>
-  
-
 </html>
